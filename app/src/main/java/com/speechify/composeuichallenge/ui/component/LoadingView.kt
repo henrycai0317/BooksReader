@@ -1,6 +1,5 @@
 package com.speechify.composeuichallenge.ui.component
 
-import android.text.Layout
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size

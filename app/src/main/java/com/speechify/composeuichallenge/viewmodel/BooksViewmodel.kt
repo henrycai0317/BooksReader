@@ -2,7 +2,6 @@ package com.speechify.composeuichallenge.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.speechify.composeuichallenge.data.Book
 import com.speechify.composeuichallenge.repository.BooksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

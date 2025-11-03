@@ -64,9 +64,7 @@ fun BookListNavigator() {
             })
         ) { backStackEntry ->
             val bookId = backStackEntry.arguments?.getString(DETAILS_ARGUMENT_KEY)
-            BookDetailScreen(bookId ?: "") {
-                navController.popBackStack()
-            }
+            BookDetailScreen(bookId = bookId ?: "", onBackClick = { navController.popBackStack() })
         }
     }
 }
