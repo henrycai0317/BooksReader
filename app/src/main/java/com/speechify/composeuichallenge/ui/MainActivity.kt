@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ComposeUIChallengeTheme {
+                BookListNavigator()
             }
         }
     }
