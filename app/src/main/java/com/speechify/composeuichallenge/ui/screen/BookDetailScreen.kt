@@ -80,7 +80,6 @@ fun BookDetailScreen(
                 .padding(paddingValues)
         ) {
             when {
-                // Loading state for detail screen
                 uiState.isLoading -> {
                     LoadingView()
                 }
@@ -101,7 +100,6 @@ private fun BookDetailContent(
     book: Book,
     modifier: Modifier = Modifier
 ) {
-    // Scrollable content drawn under system bars
     Column(
         modifier = modifier
             .fillMaxSize()

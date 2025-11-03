@@ -21,11 +21,8 @@ data class BookDetailUiState(
 
 @HiltViewModel
 class BookDetailViewModel @Inject constructor(
-    private val repository: BooksRepository,
-    savedStateHandle: SavedStateHandle
+    private val repository: BooksRepository
 ) : ViewModel() {
-
-    private val bookId: String = checkNotNull(savedStateHandle["bookId"])
 
     private val _uiState = MutableStateFlow(BookDetailUiState())
     val uiState: StateFlow<BookDetailUiState> = _uiState.asStateFlow()
