@@ -1,6 +1,7 @@
 package com.speechify.composeuichallenge.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +18,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.speechify.composeuichallenge.data.Book
 import com.speechify.composeuichallenge.ui.component.BooksItemView
+import com.speechify.composeuichallenge.ui.component.LoadingView
 import com.speechify.composeuichallenge.ui.component.SearchBarView
+import com.speechify.composeuichallenge.viewmodel.BooksUiState
 import com.speechify.composeuichallenge.viewmodel.BooksViewmodel
 
 @Composable
@@ -33,36 +36,60 @@ fun BookListScreen(
 
         }
     ) { paddingValues ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues = paddingValues)
-                .padding(24.dp)
+                .padding(paddingValues)
         ) {
-            SearchBarView(
-                query = uiState.searchQuery,
-                onQueryChange = { viewmodel.searchBooks(it) }
-            )
+            when {
+                uiState.isLoading -> {
+                    LoadingView()
+                }
 
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(
-                    items = uiState.books,
-                    key = { it.imageUrl }
-                ) { book ->
-                    BooksItemView(
-                        book = book,
-                        onClick = { onBookClick(book.id) }
-                    )
+                uiState.books.isNotEmpty() -> {
+                    BookListContent(paddingValues, uiState, viewmodel, onBookClick)
                 }
             }
         }
     }
 
 
+}
+
+@Composable
+private fun BookListContent(
+    paddingValues: PaddingValues,
+    uiState: BooksUiState,
+    viewmodel: BooksViewmodel,
+    onBookClick: (String) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues = paddingValues)
+            .padding(24.dp)
+    ) {
+        SearchBarView(
+            query = uiState.searchQuery,
+            onQueryChange = { viewmodel.searchBooks(it) }
+        )
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(
+                items = uiState.books,
+                key = { it.imageUrl }
+            ) { book ->
+                BooksItemView(
+                    book = book,
+                    onClick = { onBookClick(book.id) }
+                )
+            }
+        }
+    }
 }
 
 // Preview 用的測試資料
