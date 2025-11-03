@@ -4,14 +4,8 @@ sealed class NavigationRouter(val route: String) {
 
     object BookList : NavigationRouter("book_list")
 
-    data class BookDetail(val bookJson: String) : NavigationRouter("book_detail/${bookJson}") {
-        companion object {
-            const val ROUTE_PATTERN = "book_detail/{bookJson}"
-            const val ARG_BOOK_JSON = "bookJson"
-
-//            private val gson = Gson()
-
-        }
+    object BookDetail: NavigationRouter("book_detail/{bookId}") {
+        fun passBookId(bookId: String) = "book_detail/$bookId"
     }
 
 }

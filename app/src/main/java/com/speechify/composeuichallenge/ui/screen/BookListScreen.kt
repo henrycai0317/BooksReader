@@ -15,14 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.speechify.composeuichallenge.data.Book
 import com.speechify.composeuichallenge.ui.component.BooksItemView
 import com.speechify.composeuichallenge.ui.component.SearchBarView
 import com.speechify.composeuichallenge.viewmodel.BooksViewmodel
 
 @Composable
 fun BookListScreen(
-    onBookClick: (Book) -> Unit,
+    onBookClick: (String) -> Unit,
     viewmodel: BooksViewmodel = hiltViewModel()
 ) {
 
@@ -33,7 +32,6 @@ fun BookListScreen(
 
         }
     ) {
-
         Column(modifier = Modifier.fillMaxSize()) {
             SearchBarView(
                 query =uiState.searchQuery,
@@ -51,7 +49,7 @@ fun BookListScreen(
                 ) { book ->
                     BooksItemView(
                         book = book,
-                        onClick = { }
+                        onClick = { onBookClick(book.id)}
                     )
                 }
             }
